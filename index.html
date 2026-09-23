@@ -3,82 +3,345 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sketchbook Finance Simulator</title>
+    <title>Universal Learning Sandbox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
     <style>
-        /* Imports a hand-drawn looking font from Google */
-        @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
-        
+        :root {
+            /* Vibrant, playful kids palette */
+            --bg-color: #F5F5F7; 
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --primary: #FF4B72; /* Fun Pink/Red */
+            --primary-shadow: #D82B50;
+            --blue: #32ADE6; 
+            --blue-shadow: #2187B5;
+            --success: #34C759; 
+            --success-shadow: #24963F;
+            --warning: #FF9500; 
+            --text-main: #2C3E50;
+            --text-muted: #8E9EAB;
+        }
+
+        * { box-sizing: border-box; }
+
         body {
-            background-color: #fcf9f2;
-            background-image: radial-gradient(#d3cabc 1px, transparent 1px);
-            background-size: 20px 20px; /* Creates the sketchbook dotted paper look */
-            font-family: 'Patrick Hand', cursive;
-            color: #2c3e50;
+            /* Brighter, friendlier background */
+            background: linear-gradient(135deg, #A1E5FF 0%, #FFB6C1 100%);
+            min-height: 100vh;
+            /* Changed to Fredoka: a very rounded, friendly, chunky font */
+            font-family: 'Fredoka', sans-serif;
+            color: var(--text-main);
             padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
+            margin: 0;
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            align-items: center;
         }
-        h1 { font-size: 3rem; text-align: center; color: #e74c3c; }
+
+        /* Glassmorphism Sidebar - Softer edges */
+        .sidebar {
+            width: 240px;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 24px;
+            border: 4px solid white; /* Thicker, toy-like border */
+            box-shadow: 0 12px 35px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            height: 90vh;
+        }
+
+        .sidebar h2 { margin-top: 0; font-size: 1.3rem; color: var(--blue); letter-spacing: 0.5px;}
+
+        /* Chunky 3D Navigation Buttons */
+        .subject-btn {
+            background: white; border: 2px solid #E2E8F0; padding: 16px;
+            font-size: 1.2rem; font-family: inherit; font-weight: 700; cursor: pointer;
+            border-radius: 20px; text-align: left; transition: all 0.15s;
+            color: var(--text-main); display: flex; align-items: center; gap: 12px;
+            /* 3D effect */
+            box-shadow: 0 6px 0 #E2E8F0;
+        }
         
-        /* CSS Trick to make borders look hand-drawn */
-        .wallet {
-            font-size: 2rem; background: #fff; padding: 10px 20px;
-            border: 3px solid #34495e; 
-            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
-            display: inline-block; margin-bottom: 20px;
+        .subject-btn:hover { transform: translateY(2px); box-shadow: 0 4px 0 #E2E8F0; }
+        .subject-btn.active { 
+            background: var(--blue); color: white; border-color: var(--blue-shadow);
+            box-shadow: 0 6px 0 var(--blue-shadow); 
         }
-        .level-card {
-            background: #fff; padding: 20px; margin: 20px 0;
-            border: 3px solid #2980b9; 
-            border-radius: 15px 225px 15px 255px/255px 15px 225px 15px;
-            box-shadow: 5px 5px 0px rgba(0,0,0,0.1);
+        .subject-btn.active:active { transform: translateY(6px); box-shadow: 0 0 0 var(--blue-shadow); }
+
+        /* Main Dashboard */
+        .main-content {
+            flex: 1; max-width: 950px; height: 90vh;
+            display: flex; flex-direction: column; gap: 24px;
         }
+
+        h1 { margin: 0; font-size: 2.8rem; color: white; text-shadow: 0 4px 15px rgba(0,0,0,0.15); text-align: center;}
+        
+        .dashboard { display: flex; gap: 24px; flex: 1; }
+
+        /* Premium Glass Cards - More rounded */
+        .glass-card {
+            background: var(--card-bg); backdrop-filter: blur(20px);
+            border: 4px solid white; border-radius: 40px; padding: 32px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1); flex: 1; display: flex; flex-direction: column;
+        }
+
+        .glass-card h2 { margin-top: 0; display: flex; align-items: center; justify-content: space-between; font-size: 1.6rem;}
+
+        /* Cute TV Screen Video Player */
+        .video-player {
+            background: #2C3E50; border-radius: 24px; height: 160px; display: flex;
+            align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.4rem;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5), 0 10px 20px rgba(0,0,0,0.1); margin-bottom: 24px;
+            border: 8px solid #34495E;
+        }
+
+        /* Fun 3D Interactive Buttons */
         .btn {
-            background: #27ae60; color: white; border: none; padding: 10px 20px;
-            font-size: 1.5rem; font-family: 'Patrick Hand', cursive; cursor: pointer;
-            border-radius: 10px; transition: transform 0.1s;
+            background: white; color: var(--blue); border: 2px solid #E2E8F0; padding: 18px 20px;
+            font-size: 1.2rem; font-family: inherit; font-weight: 700; cursor: pointer;
+            border-radius: 20px; transition: all 0.1s; margin-bottom: 16px; width: 100%;
+            box-shadow: 0 6px 0 #E2E8F0;
         }
-        .btn:active { transform: scale(0.95); }
-        #log { margin-top: 15px; color: #8e44ad; font-size: 1.3rem; min-height: 30px;}
+        
+        .btn:hover:not(:disabled) { transform: translateY(2px); box-shadow: 0 4px 0 #E2E8F0; }
+        .btn:active:not(:disabled) { transform: translateY(6px); box-shadow: 0 0 0 transparent; } /* Highly tactile click */
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: translateY(6px); box-shadow: 0 0 0 transparent; }
+        
+        .btn.correct { background: var(--success); color: white; border-color: var(--success-shadow); box-shadow: 0 6px 0 var(--success-shadow); }
+        .btn.wrong { background: var(--primary); color: white; border-color: var(--primary-shadow); box-shadow: 0 6px 0 var(--primary-shadow); }
+        
+        /* Big Action Button */
+        .btn-implement { 
+            background: var(--warning); color: white; border-color: #D67D00; 
+            box-shadow: 0 8px 0 #D67D00; margin-top: auto; font-size: 1.5rem; padding: 22px;
+        }
+        .btn-implement:hover:not(:disabled) { transform: translateY(3px); box-shadow: 0 5px 0 #D67D00; }
+        .btn-implement:active:not(:disabled) { transform: translateY(8px); box-shadow: 0 0 0 transparent; }
+
+        /* Sandbox Stage */
+        .sandbox-stage {
+            font-size: 8.5rem; text-align: center; margin: 20px 0; min-height: 160px;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(255,255,255,0.5); border-radius: 30px; border: 3px dashed #BDC3C7;
+        }
+        
+        /* Fun Bouncy Animation */
+        @keyframes bounce-pop {
+            0% { transform: scale(0.1) translateY(50px); opacity: 0; }
+            50% { transform: scale(1.3) translateY(-20px); }
+            70% { transform: scale(0.9) translateY(10px); }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        .animate-pop { animation: bounce-pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+
+        /* Kid-friendly Progress Bar */
+        .progress-track {
+            background: #E2E8F0; border-radius: 30px; height: 28px; overflow: hidden; margin-top: 10px;
+            border: 3px solid white; box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);
+        }
+        .progress-fill {
+            background: repeating-linear-gradient(45deg, var(--success), var(--success) 15px, #42D867 15px, #42D867 30px);
+            width: 0%; height: 100%; transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); border-radius: 30px;
+        }
+        
+        .status-text { font-size: 1.3rem; color: var(--blue); font-weight: 700; min-height: 35px; text-align: center;}
+        
+        .badge { background: #FFF3CD; color: #856404; padding: 6px 14px; border-radius: 20px; font-size: 1rem; border: 2px solid #FFE8A1;}
     </style>
 </head>
 <body>
-    <h1>📘 The Money Sketchbook</h1>
-    
-    <div class="wallet">My Wallet: <span id="tokens">1000</span> 🪙</div>
-    
-    <div class="level-card">
-        <h2>Level 1 (Age 7-8): The Magic Vault 🏦</h2>
-        <p>Put 100 Tokens in the Fixed Deposit (FD) Vault. Wait 3 simulated years (3 seconds) to earn interest!</p>
-        <button class="btn" onclick="investFD()">Lock 100 Tokens in FD</button>
-        <div id="log"></div>
+
+    <div class="sidebar">
+        <h2>Adventures 🗺️</h2>
+        <button class="subject-btn active" id="nav-science" onclick="loadSubject('science')"><span>🌿</span> Nature</button>
+        <button class="subject-btn" id="nav-finance" onclick="loadSubject('finance')"><span>🏦</span> Wealth</button>
+        <button class="subject-btn" id="nav-coding" onclick="loadSubject('coding')"><span>🤖</span> Robots</button>
     </div>
 
+    <div class="main-content">
+        <h1 id="module-title">Universal Learning Sandbox</h1>
+        
+        <div class="dashboard">
+            <!-- LEFT CARD: THEORY -->
+            <div class="glass-card">
+                <h2>1. Learn 🧠 <span class="badge">Quiz Time!</span></h2>
+                <div class="video-player" id="video-title">▶️ Play Video</div>
+                
+                <p style="font-size: 1.3rem; font-weight: 700; margin-bottom: 24px;" id="exam-question">Question goes here...</p>
+                
+                <button class="btn" id="btn-opt1" onclick="checkAnswer(1)"></button>
+                <button class="btn" id="btn-opt2" onclick="checkAnswer(2)"></button>
+                
+                <p class="status-text" id="exam-status"></p>
+                <div style="margin-top: auto; display: flex; justify-content: space-between; color: var(--text-muted); font-weight: 700; font-size: 1.1rem;">
+                    <span>Brain Power:</span>
+                    <span id="knowledge-score" style="color: var(--blue); font-size: 1.3rem;">0 / 50</span>
+                </div>
+            </div>
+
+            <!-- RIGHT CARD: PRACTICAL -->
+            <div class="glass-card">
+                <h2>2. Build 🛠️ <span class="badge">Sandbox Fun</span></h2>
+                
+                <div style="background: white; padding: 16px 20px; border-radius: 20px; display: flex; justify-content: space-between; align-items: center; border: 3px solid #E2E8F0;">
+                    <span style="font-weight: 700; font-size: 1.2rem;">My Backpack 🎒</span>
+                    <span style="font-size: 1.5rem; font-weight: 700; color: var(--primary);">
+                        <span id="resource-count">0</span> <span id="resource-icon"></span>
+                    </span>
+                </div>
+                
+                <div class="sandbox-stage" id="sandbox-visual"></div>
+                
+                <p class="status-text" id="sandbox-status" style="color: var(--warning);">Waiting for magic items...</p>
+                
+                <button class="btn btn-implement" id="btn-implement" onclick="implementResource()" disabled>Use Item! ✨</button>
+                
+                <div style="margin-top: 24px;">
+                    <div style="display: flex; justify-content: space-between; font-weight: 700; font-size: 1.2rem;">
+                        <span>Epic Level 🌟</span>
+                        <span id="total-score" style="color: var(--success);">0 / 100</span>
+                    </div>
+                    <div class="progress-track"><div class="progress-fill" id="total-progress"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Javascript is 100% identical to the previous version to ensure logic stays intact -->
     <script>
-        let tokens = 1000;
-        
-        function investFD() {
-            if(tokens < 100) {
-                document.getElementById('log').innerText = "Not enough tokens to invest!";
-                return;
+        const courses = {
+            science: {
+                title: "Nature: How Plants Eat", question: "To convert sunlight into energy, what does the plant need from the soil?",
+                options: [
+                    { text: "🥤 Carbonated Soda", correct: false, msg: "Oops! Plants don't drink soda!" },
+                    { text: "💧 Fresh Water", correct: true, msg: "Awesome! You got 3 Water Drops!" }
+                ],
+                resIcon: "💧", btnApply: "Give 1 💧 Water!", sandboxStart: "🌱",
+                stages: ["🌿", "🌳", "🍎🌳"], stageMsgs: ["Look! It's growing!", "Wow, a huge tree!", "Yummy apples! You did it!"]
+            },
+            finance: {
+                title: "Wealth: The Magic Vault", question: "What invisible monster eats your money if you just hide it under your bed?",
+                options: [
+                    { text: "📉 The Inflation Monster", correct: true, msg: "Brilliant! You got 3 Gold Coins!" },
+                    { text: "🏦 The Friendly Bank", correct: false, msg: "Banks pay you! Try again!" }
+                ],
+                resIcon: "🪙", btnApply: "Save 1 🪙 Coin!", sandboxStart: "🧳",
+                stages: ["💰", "🏦", "🚀🏦"], stageMsgs: ["Coins are safe in the vault!", "They are making baby coins!", "To the moon! You're rich!"]
+            },
+            coding: {
+                title: "Robots: Smart Choices", question: "In coding, what command runs ONLY if the 'IF' choice is wrong?",
+                options: [
+                    { text: "🔄 The LOOP command", correct: false, msg: "Loops just spin around!" },
+                    { text: "🔀 The ELSE command", correct: true, msg: "Spot on! You got 3 Robot Gears!" }
+                ],
+                resIcon: "⚙️", btnApply: "Add 1 ⚙️ Gear!", sandboxStart: "💻",
+                stages: ["🖥️", "🌐", "🤖"], stageMsgs: ["Code is running!", "Connected to the internet!", "Robot is alive! Great job!"]
             }
+        };
+
+        let currentSubject = "science";
+        let resources = 0; let knowledgeGrade = 0; let practicalGrade = 0; let growthStage = 0;
+
+        function loadSubject(subjectKey) {
+            currentSubject = subjectKey;
+            let data = courses[subjectKey];
+
+            document.querySelectorAll('.subject-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('nav-' + subjectKey).classList.add('active');
+
+            resources = 0; knowledgeGrade = 0; practicalGrade = 0; growthStage = 0;
+
+            document.getElementById('module-title').innerText = data.title;
+            document.getElementById('exam-question').innerText = data.question;
             
-            // Deduct from wallet
-            tokens -= 100;
-            updateDisplay();
-            document.getElementById('log').innerText = "⏳ 100 Tokens locked in FD... waiting for compound interest...";
+            let btn1 = document.getElementById('btn-opt1');
+            let btn2 = document.getElementById('btn-opt2');
+            btn1.innerText = data.options[0].text; btn1.className = "btn"; btn1.disabled = false;
+            btn2.innerText = data.options[1].text; btn2.className = "btn"; btn2.disabled = false;
             
-            // Simulate time passing (3 seconds in real life = 3 years in game)
-            setTimeout(() => {
-                tokens += 120; // 20% total return
-                updateDisplay();
-                document.getElementById('log').innerText = "🎉 Magic Vault opened! You earned 120 Tokens (20% Profit)!";
-            }, 3000);
+            document.getElementById('resource-icon').innerText = data.resIcon;
+            triggerAnimation('sandbox-visual', data.sandboxStart);
+            document.getElementById('btn-implement').innerText = data.btnApply;
+            document.getElementById('btn-implement').disabled = true;
+
+            document.getElementById('exam-status').innerText = "";
+            document.getElementById('sandbox-status').innerText = "Ready to play!";
+            document.getElementById('exam-status').style.color = "var(--warning)";
+
+            updateUI();
+        }
+
+        function checkAnswer(optIndex) {
+            let data = courses[currentSubject];
+            let chosenOpt = data.options[optIndex - 1]; 
+            let targetBtn = document.getElementById('btn-opt' + optIndex);
+            let otherBtn = document.getElementById('btn-opt' + (optIndex === 1 ? 2 : 1));
+
+            if (chosenOpt.correct) {
+                knowledgeGrade = 50; resources = 3;
+                targetBtn.classList.add('correct');
+                otherBtn.disabled = true;
+                document.getElementById('btn-implement').disabled = false;
+                document.getElementById('exam-status').style.color = "var(--success)";
+            } else {
+                targetBtn.classList.add('wrong');
+                targetBtn.disabled = true;
+                document.getElementById('exam-status').style.color = "var(--primary)";
+            }
+            document.getElementById('exam-status').innerText = chosenOpt.msg;
+            updateUI();
+        }
+
+        function implementResource() {
+            if (resources > 0) {
+                resources--;
+                let data = courses[currentSubject];
+                
+                triggerAnimation('sandbox-visual', data.stages[growthStage]);
+                document.getElementById('sandbox-status').innerText = data.stageMsgs[growthStage];
+                
+                growthStage++;
+                practicalGrade = Math.min(50, Math.round((growthStage / 3) * 50));
+                
+                if (growthStage >= 3) {
+                    document.getElementById('btn-implement').disabled = true;
+                    document.getElementById('sandbox-status').style.color = "var(--success)";
+                }
+                
+                updateUI();
+            }
         }
         
-        function updateDisplay() {
-            document.getElementById('tokens').innerText = tokens;
+        function triggerAnimation(elementId, newText) {
+            const el = document.getElementById(elementId);
+            el.classList.remove('animate-pop');
+            void el.offsetWidth; 
+            el.innerText = newText;
+            el.classList.add('animate-pop');
         }
+
+        function updateUI() {
+            document.getElementById('knowledge-score').innerText = knowledgeGrade + " / 50";
+            document.getElementById('resource-count').innerText = resources;
+            
+            let totalScore = knowledgeGrade + practicalGrade;
+            document.getElementById('total-score').innerText = totalScore + " / 100";
+            
+            let progressElement = document.getElementById('total-progress');
+            progressElement.style.width = totalScore + "%";
+            
+            if(totalScore === 100) {
+                progressElement.style.background = "repeating-linear-gradient(45deg, #FFD700, #FFD700 15px, #F5A623 15px, #F5A623 30px)";
+            } else {
+                progressElement.style.background = "repeating-linear-gradient(45deg, var(--success), var(--success) 15px, #42D867 15px, #42D867 30px)";
+            }
+        }
+
+        loadSubject('science');
     </script>
 </body>
 </html>

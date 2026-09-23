@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Universal Learning Sandbox</title>
+    <title>Kids Financial Sandbox</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Vibrant, playful kids palette */
             --bg-color: #F5F5F7; 
             --card-bg: rgba(255, 255, 255, 0.85);
-            --primary: #FF4B72; /* Fun Pink/Red */
+            --primary: #FF4B72; 
             --primary-shadow: #D82B50;
             --blue: #32ADE6; 
             --blue-shadow: #2187B5;
@@ -24,10 +23,8 @@
         * { box-sizing: border-box; }
 
         body {
-            /* Brighter, friendlier background */
             background: linear-gradient(135deg, #A1E5FF 0%, #FFB6C1 100%);
             min-height: 100vh;
-            /* Changed to Fredoka: a very rounded, friendly, chunky font */
             font-family: 'Fredoka', sans-serif;
             color: var(--text-main);
             padding: 20px;
@@ -38,14 +35,13 @@
             align-items: center;
         }
 
-        /* Glassmorphism Sidebar - Softer edges */
         .sidebar {
-            width: 240px;
+            width: 250px;
             background: var(--card-bg);
             backdrop-filter: blur(20px);
             border-radius: 30px;
             padding: 24px;
-            border: 4px solid white; /* Thicker, toy-like border */
+            border: 4px solid white; 
             box-shadow: 0 12px 35px rgba(0,0,0,0.1);
             display: flex;
             flex-direction: column;
@@ -53,15 +49,13 @@
             height: 90vh;
         }
 
-        .sidebar h2 { margin-top: 0; font-size: 1.3rem; color: var(--blue); letter-spacing: 0.5px;}
+        .sidebar h2 { margin-top: 0; font-size: 1.4rem; color: var(--blue); letter-spacing: 0.5px; text-align: center;}
 
-        /* Chunky 3D Navigation Buttons */
         .subject-btn {
             background: white; border: 2px solid #E2E8F0; padding: 16px;
             font-size: 1.2rem; font-family: inherit; font-weight: 700; cursor: pointer;
             border-radius: 20px; text-align: left; transition: all 0.15s;
             color: var(--text-main); display: flex; align-items: center; gap: 12px;
-            /* 3D effect */
             box-shadow: 0 6px 0 #E2E8F0;
         }
         
@@ -72,7 +66,6 @@
         }
         .subject-btn.active:active { transform: translateY(6px); box-shadow: 0 0 0 var(--blue-shadow); }
 
-        /* Main Dashboard */
         .main-content {
             flex: 1; max-width: 950px; height: 90vh;
             display: flex; flex-direction: column; gap: 24px;
@@ -82,7 +75,6 @@
         
         .dashboard { display: flex; gap: 24px; flex: 1; }
 
-        /* Premium Glass Cards - More rounded */
         .glass-card {
             background: var(--card-bg); backdrop-filter: blur(20px);
             border: 4px solid white; border-radius: 40px; padding: 32px;
@@ -91,7 +83,6 @@
 
         .glass-card h2 { margin-top: 0; display: flex; align-items: center; justify-content: space-between; font-size: 1.6rem;}
 
-        /* Cute TV Screen Video Player */
         .video-player {
             background: #2C3E50; border-radius: 24px; height: 160px; display: flex;
             align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.4rem;
@@ -99,7 +90,6 @@
             border: 8px solid #34495E;
         }
 
-        /* Fun 3D Interactive Buttons */
         .btn {
             background: white; color: var(--blue); border: 2px solid #E2E8F0; padding: 18px 20px;
             font-size: 1.2rem; font-family: inherit; font-weight: 700; cursor: pointer;
@@ -108,13 +98,12 @@
         }
         
         .btn:hover:not(:disabled) { transform: translateY(2px); box-shadow: 0 4px 0 #E2E8F0; }
-        .btn:active:not(:disabled) { transform: translateY(6px); box-shadow: 0 0 0 transparent; } /* Highly tactile click */
+        .btn:active:not(:disabled) { transform: translateY(6px); box-shadow: 0 0 0 transparent; } 
         .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: translateY(6px); box-shadow: 0 0 0 transparent; }
         
         .btn.correct { background: var(--success); color: white; border-color: var(--success-shadow); box-shadow: 0 6px 0 var(--success-shadow); }
         .btn.wrong { background: var(--primary); color: white; border-color: var(--primary-shadow); box-shadow: 0 6px 0 var(--primary-shadow); }
         
-        /* Big Action Button */
         .btn-implement { 
             background: var(--warning); color: white; border-color: #D67D00; 
             box-shadow: 0 8px 0 #D67D00; margin-top: auto; font-size: 1.5rem; padding: 22px;
@@ -122,14 +111,12 @@
         .btn-implement:hover:not(:disabled) { transform: translateY(3px); box-shadow: 0 5px 0 #D67D00; }
         .btn-implement:active:not(:disabled) { transform: translateY(8px); box-shadow: 0 0 0 transparent; }
 
-        /* Sandbox Stage */
         .sandbox-stage {
             font-size: 8.5rem; text-align: center; margin: 20px 0; min-height: 160px;
             display: flex; align-items: center; justify-content: center;
             background: rgba(255,255,255,0.5); border-radius: 30px; border: 3px dashed #BDC3C7;
         }
         
-        /* Fun Bouncy Animation */
         @keyframes bounce-pop {
             0% { transform: scale(0.1) translateY(50px); opacity: 0; }
             50% { transform: scale(1.3) translateY(-20px); }
@@ -138,7 +125,6 @@
         }
         .animate-pop { animation: bounce-pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 
-        /* Kid-friendly Progress Bar */
         .progress-track {
             background: #E2E8F0; border-radius: 30px; height: 28px; overflow: hidden; margin-top: 10px;
             border: 3px solid white; box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);
@@ -156,14 +142,14 @@
 <body>
 
     <div class="sidebar">
-        <h2>Adventures 🗺️</h2>
-        <button class="subject-btn active" id="nav-science" onclick="loadSubject('science')"><span>🌿</span> Nature</button>
-        <button class="subject-btn" id="nav-finance" onclick="loadSubject('finance')"><span>🏦</span> Wealth</button>
-        <button class="subject-btn" id="nav-coding" onclick="loadSubject('coding')"><span>🤖</span> Robots</button>
+        <h2>My Money 💸</h2>
+        <button class="subject-btn active" id="nav-vault" onclick="loadSubject('vault')"><span>🏦</span> The Vault</button>
+        <button class="subject-btn" id="nav-sip" onclick="loadSubject('sip')"><span>⚙️</span> Auto-Save</button>
+        <button class="subject-btn" id="nav-stocks" onclick="loadSubject('stocks')"><span>🍕</span> Businesses</button>
     </div>
 
     <div class="main-content">
-        <h1 id="module-title">Universal Learning Sandbox</h1>
+        <h1 id="module-title">Kids Financial Sandbox</h1>
         
         <div class="dashboard">
             <!-- LEFT CARD: THEORY -->
@@ -185,10 +171,10 @@
 
             <!-- RIGHT CARD: PRACTICAL -->
             <div class="glass-card">
-                <h2>2. Build 🛠️ <span class="badge">Sandbox Fun</span></h2>
+                <h2>2. Build 🛠️ <span class="badge">My Portfolio</span></h2>
                 
                 <div style="background: white; padding: 16px 20px; border-radius: 20px; display: flex; justify-content: space-between; align-items: center; border: 3px solid #E2E8F0;">
-                    <span style="font-weight: 700; font-size: 1.2rem;">My Backpack 🎒</span>
+                    <span style="font-weight: 700; font-size: 1.2rem;">My Wallet 💳</span>
                     <span style="font-size: 1.5rem; font-weight: 700; color: var(--primary);">
                         <span id="resource-count">0</span> <span id="resource-icon"></span>
                     </span>
@@ -196,13 +182,13 @@
                 
                 <div class="sandbox-stage" id="sandbox-visual"></div>
                 
-                <p class="status-text" id="sandbox-status" style="color: var(--warning);">Waiting for magic items...</p>
+                <p class="status-text" id="sandbox-status" style="color: var(--warning);">Waiting for money moves...</p>
                 
-                <button class="btn btn-implement" id="btn-implement" onclick="implementResource()" disabled>Use Item! ✨</button>
+                <button class="btn btn-implement" id="btn-implement" onclick="implementResource()" disabled>Invest Now! ✨</button>
                 
                 <div style="margin-top: 24px;">
                     <div style="display: flex; justify-content: space-between; font-weight: 700; font-size: 1.2rem;">
-                        <span>Epic Level 🌟</span>
+                        <span>Wealth Level 🌟</span>
                         <span id="total-score" style="color: var(--success);">0 / 100</span>
                     </div>
                     <div class="progress-track"><div class="progress-fill" id="total-progress"></div></div>
@@ -211,39 +197,38 @@
         </div>
     </div>
 
-    <!-- The Javascript is 100% identical to the previous version to ensure logic stays intact -->
     <script>
         const courses = {
-            science: {
-                title: "Nature: How Plants Eat", question: "To convert sunlight into energy, what does the plant need from the soil?",
+            vault: {
+                title: "The Vault: Fixed Deposits", question: "What invisible monster eats your money if you just hide it under your bed?",
                 options: [
-                    { text: "🥤 Carbonated Soda", correct: false, msg: "Oops! Plants don't drink soda!" },
-                    { text: "💧 Fresh Water", correct: true, msg: "Awesome! You got 3 Water Drops!" }
-                ],
-                resIcon: "💧", btnApply: "Give 1 💧 Water!", sandboxStart: "🌱",
-                stages: ["🌿", "🌳", "🍎🌳"], stageMsgs: ["Look! It's growing!", "Wow, a huge tree!", "Yummy apples! You did it!"]
-            },
-            finance: {
-                title: "Wealth: The Magic Vault", question: "What invisible monster eats your money if you just hide it under your bed?",
-                options: [
-                    { text: "📉 The Inflation Monster", correct: true, msg: "Brilliant! You got 3 Gold Coins!" },
+                    { text: "📉 The Inflation Monster", correct: true, msg: "Brilliant! You earned 3 Gold Coins!" },
                     { text: "🏦 The Friendly Bank", correct: false, msg: "Banks pay you! Try again!" }
                 ],
-                resIcon: "🪙", btnApply: "Save 1 🪙 Coin!", sandboxStart: "🧳",
-                stages: ["💰", "🏦", "🚀🏦"], stageMsgs: ["Coins are safe in the vault!", "They are making baby coins!", "To the moon! You're rich!"]
+                resIcon: "🪙", btnApply: "Save 1 🪙 Coin!", sandboxStart: "🐖",
+                stages: ["💰", "🏦", "🏰"], stageMsgs: ["Coins are safe in the Piggy Bank!", "Upgraded to a real Bank Vault!", "A giant Money Castle! You're rich!"]
             },
-            coding: {
-                title: "Robots: Smart Choices", question: "In coding, what command runs ONLY if the 'IF' choice is wrong?",
+            sip: {
+                title: "Money Machine: SIPs", question: "What is the secret to growing wealth without doing any hard work?",
                 options: [
-                    { text: "🔄 The LOOP command", correct: false, msg: "Loops just spin around!" },
-                    { text: "🔀 The ELSE command", correct: true, msg: "Spot on! You got 3 Robot Gears!" }
+                    { text: "🎰 Winning the Lottery", correct: false, msg: "That's just luck! Try again!" },
+                    { text: "⚙️ Auto-Investing (SIP)", correct: true, msg: "Smart! You earned 3 Money Gears!" }
                 ],
-                resIcon: "⚙️", btnApply: "Add 1 ⚙️ Gear!", sandboxStart: "💻",
-                stages: ["🖥️", "🌐", "🤖"], stageMsgs: ["Code is running!", "Connected to the internet!", "Robot is alive! Great job!"]
+                resIcon: "⚙️", btnApply: "Add 1 ⚙️ Gear!", sandboxStart: "🔧",
+                stages: ["⚙️", "🏭", "🤑"], stageMsgs: ["Gear installed!", "Money factory is running!", "Compound interest unlocked!"]
+            },
+            stocks: {
+                title: "Stocks: Own a Business", question: "When you buy a 'Stock', what are you actually buying?",
+                options: [
+                    { text: "🎟️ A magic lottery ticket", correct: false, msg: "Nope, stocks are real businesses!" },
+                    { text: "🍕 A piece of a real company", correct: true, msg: "Yes! You earned 3 Pizza Shares!" }
+                ],
+                resIcon: "🍕", btnApply: "Buy 1 🍕 Share!", sandboxStart: "🪙",
+                stages: ["🍕", "🍕🍕", "🏪"], stageMsgs: ["You own one slice of the company!", "You own half the company!", "You own the whole Pizza Shop!"]
             }
         };
 
-        let currentSubject = "science";
+        let currentSubject = "vault";
         let resources = 0; let knowledgeGrade = 0; let practicalGrade = 0; let growthStage = 0;
 
         function loadSubject(subjectKey) {
@@ -269,7 +254,7 @@
             document.getElementById('btn-implement').disabled = true;
 
             document.getElementById('exam-status').innerText = "";
-            document.getElementById('sandbox-status').innerText = "Ready to play!";
+            document.getElementById('sandbox-status').innerText = "Ready to invest!";
             document.getElementById('exam-status').style.color = "var(--warning)";
 
             updateUI();
@@ -341,7 +326,7 @@
             }
         }
 
-        loadSubject('science');
+        loadSubject('vault');
     </script>
 </body>
 </html>
